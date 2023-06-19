@@ -21,6 +21,7 @@ class TaskFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
+     * dateTimeBetween is date between -1 week ago, and 1 week from now
      */
     public function definition(): array
     {
@@ -28,8 +29,8 @@ class TaskFactory extends Factory
             'title' => fake()->text(30),
             'description' => fake()->text(100),
             'status' => 'todo',
-            'start_date' => fake()->date(),
-            'due_date' => fake()->date(),
+            'start_date' => fake()->dateTimeBetween('-1 week', '+1 week'), 
+            'due_date' => fake()->dateTimeBetween('-1 week', '+1 week'),
         ];
     }
 }

@@ -15,4 +15,14 @@ class Task extends Model
      * @var string
      */
     protected $table = 'tasks';
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'start_date' => 'datetime',
+        'due_date' => 'datetime',
+    ];
 }
