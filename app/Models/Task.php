@@ -10,11 +10,17 @@ class Task extends Model
     use HasFactory;
 
     /**
-     * The table associated with the model.
+     * The attributes that are mass assignable.
      *
-     * @var string
+     * @var array
      */
-    protected $table = 'tasks';
+    protected $fillable = [
+        'title',
+        'description',
+        'status',
+        'start_date',
+        'due_date'
+    ];
 
     /**
      * The attributes that should be cast.
@@ -25,4 +31,13 @@ class Task extends Model
         'start_date' => 'datetime',
         'due_date' => 'datetime',
     ];
+
+    public static function getStatusLabels()
+    {
+        return [
+            'todo' => 'Todo',
+            'inprogress' => 'Inprogress',
+            'done' => 'Done',
+        ];
+    }
 }

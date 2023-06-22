@@ -3,20 +3,51 @@
 ### Install Requirement
 ```
 Laravel: 10.10
+PHP >= 8.1     
 Database: sqlite
+Bootstrap: 5.3
+Jquery
 ```
 
 ### How to run:
-
-- Config file .env use sqlite DB or copy file .env.example to .env
-- Migration: php artisan migrate
-- DB seeder: php artisan db:seeder
-- php artisan server (Server running on [http://127.0.0.1:8000])
-
+- Clone this repository. Then, cd to folder of source.
+- Install PHP packages
+```
+composer install
+```
+- Copy file .env.example to config environment in .env
+```
+cp .env.example .env
+```
+- Generate key in configuration file
+```
+php artisan key:generate
+```
+- Run databases migration: 
+```
+php artisan migrate
+```
+- Run databases seeder to create fake data.
+```
+php artisan db:seeder
+```
+- Run command line below and open browser on [http://127.0.0.1:8000]
+```
+php artisan server
+```
+- Run install Node packages (we're using [Vite](https://vitejs.dev/) is available in Laravel)
+```
+  npm install
+  npm run dev
+  npm run build
+```
 
 ### Packages
-- [bootstrap](https://getbootstrap.com/docs/5.0/getting-started/download/): npm install bootstrap
+- [Bootstrap](https://getbootstrap.com/docs/5.0/getting-started/download/): npm install bootstrap
 - [Datatables](https://datatables.net/manual/installation): npm install --save datatables.net-dt
+- [Fontawesome](https://fontawesome.com/docs/web/setup/packages): npm install --save @fortawesome/fontawesome-free
+- [flatpickr](https://flatpickr.js.org/getting-started/): npm i flatpickr --save
+
 
 ## About Laravel
 

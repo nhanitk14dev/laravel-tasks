@@ -2,18 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
-use Illuminate\Http\Request;
+use App\Http\Requests\TaskFormRequest;
+use App\Repositories\TaskRepositoryInterface;
 
 class TaskController extends Controller
 {
+    protected $task;
+
+    public function __construct(TaskRepositoryInterface $task)
+    {
+        $this->task = $task;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = $this->task->getAll();
         return view('tasks.index', ['tasks' => $tasks]);
+    }
+
+    public function show(string $id)
+    {
+        $task = $this->task->find($id);
+        if ($task) {
+            return view('tasks.show', compact('task'));
+        }
+        return redirect('/404');
     }
 
     /**
@@ -21,23 +36,17 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskFormRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $validatedData = $request->validated();
+        $this->task->store($validatedData);
+        return redirect('/tasks')->with('success', 'Task created successfully');
     }
 
     /**
@@ -45,15 +54,21 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $task = $this->task->find($id);
+        if ($task) {
+            return view('tasks.edit', compact('task'));
+        }
+        return redirect('/404');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TaskFormRequest $request, string $id)
     {
-        //
+        $validatedData = $request->validated();
+        $this->task->update($validatedData, $id);
+        return redirect()->back()->with('success', 'Task updated successfully');
     }
 
     /**
@@ -61,6 +76,18 @@ class TaskController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $task = $this->task->find($id);
+        if (!$task) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'Task is not found!',
+            ]);
+        }
+
+        $this->task->destroy($id);
+        return response()->json([
+            'success' => true,
+            'msg' => 'Task deleted successfully',
+        ]);
     }
 }
