@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Task extends Model
 {
@@ -19,7 +21,7 @@ class Task extends Model
         'description',
         'status',
         'start_date',
-        'due_date'
+        'due_date',
     ];
 
     /**
@@ -39,5 +41,23 @@ class Task extends Model
             'inprogress' => 'Inprogress',
             'done' => 'Done',
         ];
+    }
+
+    /**
+     * Scope a query to only include todo task.
+     * https://laravel.com/docs/10.x/eloquent
+     */
+    public function scopeTodo(Builder $query): void
+    {
+        $query->where('status', 'todo');
+    }
+
+    /**
+     * The users that belong to the role.
+     */
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
     }
 }

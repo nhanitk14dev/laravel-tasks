@@ -9,4 +9,5 @@ interface TaskRepositoryInterface
     public function store($inputs);
     public function update($inputs, $id);
     public function destroy($id);
+    public function paginate($perPage = 10);
 }

@@ -49,6 +49,13 @@ php artisan server
 - [flatpickr](https://flatpickr.js.org/getting-started/): npm i flatpickr --save
 
 
+### Note
+1. How to assign a tasks to multiple users.
+- Use [`Laravel Many To Many Relationships`](https://laravel.com/docs/10.x/eloquent-relationships#many-to-many
+)
+
+
+
 ## About Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.

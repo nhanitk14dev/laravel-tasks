@@ -40,4 +40,9 @@ class TaskRepository implements TaskRepositoryInterface
         return $task ? $this->model->destroy($id) : null;
     }
 
+    public function paginate($perPage = 10)
+    {
+        return $this->model->paginate($perPage);
+    }
+
 }
